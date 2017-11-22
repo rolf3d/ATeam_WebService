@@ -12,7 +12,7 @@ namespace WebService_AlarmSystem
     [ServiceContract]
     public interface IService1
     {
-
+        //Kommentar fra Søren
         [OperationContract]
         string GetData(int value);
 
