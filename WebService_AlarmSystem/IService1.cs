@@ -16,6 +16,19 @@ namespace WebService_AlarmSystem
         [OperationContract]
         string GetData(int value);
 
-        
+        //urllen skal sættes
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+                   ResponseFormat = WebMessageFormat.Json,
+                   UriTemplate = "Url")]
+        IList<string> GetAllRaspAlarms();
+
+        //urllen skal sættes
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                    ResponseFormat = WebMessageFormat.Json,
+                    RequestFormat = WebMessageFormat.Json,
+                    UriTemplate = "Url")]
+        void InsertRaspAlarm();
     }   
 }

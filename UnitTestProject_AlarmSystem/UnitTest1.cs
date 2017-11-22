@@ -13,7 +13,7 @@ namespace UnitTestProject_AlarmSystem
             Service1 ggg = new Service1();
 
             ggg.GetData(6);
-            string gggg = "You entered: 6";
+            string gggg = "You entered: 6"; 
 
             Assert.AreEqual(ggg.GetData(6), gggg);
         }
