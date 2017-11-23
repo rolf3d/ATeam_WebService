@@ -13,12 +13,11 @@ namespace WebService_AlarmSystem
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-
         const string ConnectionString = "connection string";
 
-        public string GetData(int value)
+        public string GetData()
         {
-            return string.Format("You entered: {0}", value);
+            return string.Format("FROM REST_SERVICE: GetData called");
         }
 
         public IList<string> GetAllRaspAlarms()
