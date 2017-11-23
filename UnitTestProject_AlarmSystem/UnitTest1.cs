@@ -12,10 +12,10 @@ namespace UnitTestProject_AlarmSystem
         {
             Service1 ggg = new Service1();
 
-            ggg.GetData(6);
-            string gggg = "You entered: 6"; 
+            ggg.GetData();
+            string gggg = "FROM REST_SERVICE: GetData called"; 
 
-            Assert.AreEqual(ggg.GetData(6), gggg);
+            Assert.AreEqual(ggg.GetData(), gggg);
         }
     }
 }
