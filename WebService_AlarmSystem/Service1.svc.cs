@@ -17,24 +17,37 @@ namespace WebService_AlarmSystem
                                       Initial Catalog = StudentDb; Persist Security Info=False;
                                       User ID = casper; Password=Knoxville2;MultipleActiveResultSets=False;Encrypt=True;
                                       TrustServerCertificate=False;Connection Timeout = 30;";
-
-        public string GetData()
+        /// <summary>
+        /// Returns the State of the alarm 0 is off, 1 is on.
+        /// </summary>
+        /// <returns></returns>
+        public int GetAlarmStatus()
         {
-            return "FROM REST_SERVICE: GetData called";
+            int ggg;
+            SqlConnection conn = new SqlConnection(ConnString);
+            SqlCommand cmd = new SqlCommand("Select TOP 1 AlarmState from AlarmStatus order by AlarmStateID Desc");
+
+            cmd.Connection = conn;
+
+            conn.Open();
+            ggg = (int)cmd.ExecuteScalar();
+            conn.Close();
+            return ggg;
         }
 
+        /// <summary>
+        /// Returns all alarms in the Db
+        /// </summary>
+        /// <returns></returns>
         public IList<AlarmLog> GetAllAlarms()
         {
-
             List<AlarmLog> temp_list = new List<AlarmLog>();
-
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = conn;
                     conn.Open();
-
                     cmd.CommandText = "Select * from AlarmLog";
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -43,7 +56,7 @@ namespace WebService_AlarmSystem
                         temp_list.Add(new AlarmLog()
                         {
                             Id = (int)reader[0],
-                            AlarmTime =  (DateTime)reader[1],
+                            AlarmTime = (DateTime)reader[1],
                             Log = (String)reader[2]
                         });
                     }
@@ -52,13 +65,30 @@ namespace WebService_AlarmSystem
             }
         }
 
+        /// <summary>
+        /// Posts an Alarm into the Db
+        /// </summary>
+        /// <param name="Log"></param>
         public void PostRaspAlarm(string Log)
         {
             SqlConnection conn = new SqlConnection(ConnString);
             SqlCommand cmd = new SqlCommand("INSERT INTO AlarmLog (Log) VALUES (@log)");
+
+            //Kalde metoden neden under
             cmd.Connection = conn;
             cmd.Parameters.AddWithValue("@log", Log);
 
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        //Funktion der updater i databasen
+        public void ResetRaspAlarm()
+        {
+            SqlConnection conn = new SqlConnection(ConnString);
+            SqlCommand cmd = new SqlCommand("INSERT INTO AlarmStatus (Alarmstate) VALUES (0)");
+            cmd.Connection = conn;
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();

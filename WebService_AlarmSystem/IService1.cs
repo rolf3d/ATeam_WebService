@@ -13,12 +13,13 @@ namespace WebService_AlarmSystem
     public interface IService1
     {
         //Kommentar fra Søren
-        //[OperationContract]
+        //todo Test skal nok omdøbes
+        [OperationContract]
         [WebInvoke(Method = "GET",
                     ResponseFormat = WebMessageFormat.Json,
                     RequestFormat = WebMessageFormat.Json,
                     UriTemplate = "Test")]
-        string GetData();
+        int GetAlarmStatus();
 
         //urllen skal sættes
         [OperationContract]
@@ -35,5 +36,13 @@ namespace WebService_AlarmSystem
                     RequestFormat = WebMessageFormat.Json,
                     UriTemplate = "Alarm")]
         void PostRaspAlarm(string Log);
+
+        //Skal laves om, virker ikke helt.  
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                    ResponseFormat = WebMessageFormat.Json,
+                    RequestFormat = WebMessageFormat.Json,
+                    UriTemplate = "Reset")]
+        void ResetRaspAlarm();
     }   
 }

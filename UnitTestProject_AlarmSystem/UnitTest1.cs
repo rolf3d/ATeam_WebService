@@ -8,14 +8,17 @@ namespace UnitTestProject_AlarmSystem
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod_AlarmStatusIsSmallerThan2()
         {
-            Service1 ggg = new Service1();
+            Service1 TestService = new Service1();
+            Assert.IsTrue(TestService.GetAlarmStatus() < 2);
+        }
 
-            ggg.GetData();
-            string gggg = "FROM REST_SERVICE: GetData called"; 
-
-            Assert.AreEqual(ggg.GetData(), gggg);
+        [TestMethod]
+        public void TestMethod_AlarmStatusIsLargerThan0()
+        {
+            Service1 TestService = new Service1();
+            Assert.IsTrue(TestService.GetAlarmStatus() >= 0);
         }
     }
 }
